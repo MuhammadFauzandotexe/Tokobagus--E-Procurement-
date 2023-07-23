@@ -18,10 +18,11 @@ public class ProductDetail extends BaseEntity {
     @Id
     @GenericGenerator(strategy = "uuid2", name = "system-uuid")
     @GeneratedValue(generator = "system-uuid")
+    @Column(updatable = false)
     private String id;
     private Long price;
     private Long stock;
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id",updatable = false)
     private Product product;
 }

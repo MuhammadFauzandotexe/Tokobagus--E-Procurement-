@@ -19,13 +19,14 @@ public class Product extends BaseEntity {
     @Id
     @GenericGenerator(strategy = "uuid2", name = "system-uuid")
     @GeneratedValue(generator = "system-uuid")
+    @Column(updatable = false)
     private String id;
     private String name;
     private String description;
     @OneToOne()
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id",updatable = false)
     private ProductCategory productCategory;
-
+    @Column(updatable = false)
     @OneToMany(mappedBy = "product")
     private List<ProductDetail> productDetails;
 }

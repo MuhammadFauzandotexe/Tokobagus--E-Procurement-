@@ -18,6 +18,7 @@ public class ProductCategory {
     @Id
     @GenericGenerator(strategy = "uuid2", name = "system-uuid")
     @GeneratedValue(generator = "system-uuid")
+    @Column(updatable = false)
     private String id;
     private String categoryName;
 }

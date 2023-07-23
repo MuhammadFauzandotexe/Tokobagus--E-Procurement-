@@ -38,9 +38,8 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public CommonResponse<Vendor> findById(String id) {
-        Optional<Vendor> vendor = Optional.ofNullable(vendorRepository.findById(id).orElseThrow(() -> {
-            throw new RuntimeException("Vendor Not Found");
-        }));
+        Optional<Vendor> vendor = Optional.ofNullable(vendorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vendor Not Found /vendor/{}" + id)));
         return CommonResponse.<Vendor>builder()
                 .message("Success")
                 .statusCode(HttpStatus.OK.value())
@@ -52,7 +51,6 @@ public class VendorServiceImpl implements VendorService {
     public CommonResponse<List<Vendor>> findAll(Pageable pageable) {
         try {
             Page<Vendor> vendorsPage = vendorRepository.findAll(pageable);
-            List<Vendor> vendors = vendorsPage.getContent();
             return CommonResponse.<List<Vendor>>builder()
                     .statusCode(HttpStatus.OK.value())
                     .message("Success")
@@ -65,10 +63,9 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public CommonResponse<Vendor> updateById(Vendor vendor) {
-            Optional<Vendor> vendorUpdated = Optional.ofNullable(vendorRepository.findById(vendor.getId()).orElseThrow(() -> {
-                throw new RuntimeException("Resource Not Found");
-            }));
-            if (!vendorUpdated.isPresent()){
+            Optional<Vendor> vendorUpdated = Optional.ofNullable(vendorRepository.findById(vendor.getId())
+                    .orElseThrow(() -> new RuntimeException("Resource Not Found")));
+            if (vendorUpdated.isEmpty()){
                 throw new RuntimeException("Resource Not Found");
             }
             vendorUpdated.get().setName(vendor.getName());

@@ -5,13 +5,11 @@ import org.ojan.tokobagus.entity.Vendor;
 import org.ojan.tokobagus.model.request.VendorRequest;
 import org.ojan.tokobagus.model.response.CommonResponse;
 import org.ojan.tokobagus.service.VendorService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -36,5 +34,13 @@ public class VendorController {
         return ResponseEntity.status(HttpStatus.OK.value())
                 .body(vendorService.findById(id));
     }
+    @PutMapping("/vendor")
+    public ResponseEntity<CommonResponse<Vendor>> updateById(@RequestBody Vendor vendor) {
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(vendorService.updateById(vendor));
+    }
+
+
 
 }

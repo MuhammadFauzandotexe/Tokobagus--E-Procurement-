@@ -22,7 +22,6 @@ public class Vendor extends BaseEntity{
     private String id;
     private String name;
     private String mobilePhone;
-
     @ManyToMany
     @JoinTable(name = "product_vendor",
             joinColumns = { @JoinColumn(name = "vendor_id",referencedColumnName = "id") //TODO ini adalah id user
